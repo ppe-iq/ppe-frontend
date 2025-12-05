@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Sitemap: https://ppe-iq.com/sitemap.xml
+Host: https://ppe-iq.com
+
+# Crawl rate and disallow examples (customize as needed)
+# Crawl-delay: 10
+# Disallow: /private/
