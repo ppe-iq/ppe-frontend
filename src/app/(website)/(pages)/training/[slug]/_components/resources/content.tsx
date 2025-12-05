@@ -6,10 +6,10 @@ import Image from "next/image";
 
 import SectionWrapper from "@/app/(website)/_components/section-wrapper";
 import SecondaryButton from "@/components/global/button/secondary-button";
+import { cn } from "@/lib/utils";
 
 import { CourseDetailsResponse } from "../types";
 import { description, image, imagesContainer, title } from "./variants";
-import { cn } from "@/lib/utils";
 
 // Props
 type Props = {
