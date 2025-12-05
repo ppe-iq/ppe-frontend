@@ -35,14 +35,24 @@ export default function NavigationProgress() {
       const target = event.target as HTMLAnchorElement;
       const link = target.closest("a");
 
-      if (!link || !link.href) return;
+      if (!link || !link.href) {
+        return;
+      }
 
+      // Parse link URL to get pathname
+      const linkUrl = new URL(link.href);
+      const linkPathname = linkUrl.pathname;
+
+      // Check if it's internal and not the same route
       const isInternal =
         link.hostname === window.location.hostname &&
         !link.target &&
         !link.href.includes("#");
 
-      if (isInternal) {
+      const isSameRoute = linkPathname === pathname;
+
+      // Only show progress if internal and different route
+      if (isInternal && !isSameRoute) {
         setLoading(true);
         setProgress(10);
       }
@@ -52,7 +62,7 @@ export default function NavigationProgress() {
 
     // Cleanup
     return () => document.removeEventListener("click", clickHandler);
-  }, []);
+  }, [pathname]);
 
   if (!loading && progress === 0) return null;
 
