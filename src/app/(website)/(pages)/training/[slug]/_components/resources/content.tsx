@@ -9,6 +9,7 @@ import SecondaryButton from "@/components/global/button/secondary-button";
 
 import { CourseDetailsResponse } from "../types";
 import { description, image, imagesContainer, title } from "./variants";
+import { cn } from "@/lib/utils";
 
 // Props
 type Props = {
@@ -20,6 +21,13 @@ export default function TrainingCourseDetailsResourcesContent({
 }: Props) {
   // Reduce motion
   const reduceMotion = useReducedMotion();
+
+  // Get file id
+  function getFileId(url: string): string {
+    const urlParts = url.split("/");
+
+    return urlParts.at(-1) || "";
+  }
 
   return (
     <SectionWrapper className="grid items-start bg-transparent sm:grid-cols-2">
@@ -57,36 +65,54 @@ export default function TrainingCourseDetailsResourcesContent({
         initial="hidden"
         whileInView="show"
         viewport={imagesContainer.viewport}
-        className="bg-secondary-450 grid grid-cols-2 gap-2 rounded-2xl p-2 sm:gap-6 sm:p-6"
+        className={cn(
+          "bg-secondary-450 grid gap-2 rounded-2xl p-2 sm:gap-6 sm:p-6",
+          course.pdfs.length > 1 && "md:grid-cols-2 lg:grid-cols-3",
+        )}
       >
-        {course.pdfs.map((item) => (
+        {course.pdfs.map((pdf) => (
           <motion.div
-            key={item.id}
+            key={pdf.id}
             variants={reduceMotion ? {} : image(1.4)}
             initial="hidden"
             whileInView="show"
             viewport={image(1.4).viewport}
             className="bg-secondary-400 flex flex-col gap-6 rounded-md p-3"
           >
-            <figure className="border-secondary-450 relative aspect-[303/310] w-full overflow-hidden rounded-lg border">
+            {/* PDF Icon/Logo */}
+            <figure className="border-secondary-450 relative h-32 w-full overflow-hidden rounded-lg border">
               <Image
                 src="/icons/favicon.svg"
                 fill
-                sizes="(min-width: 1024px) 100px, 19vw"
-                alt="Brochure"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                alt={pdf.title}
                 loading="lazy"
-                className="object-contain"
+                className="object-contain p-4"
               />
             </figure>
-            <h2 className="text-center font-medium">{item.title}</h2>
-            <SecondaryButton
-              href={item.file_url}
-              target="_blank"
-              containerClassName="mt-auto"
-              className="w-full"
-            >
-              Preview
-            </SecondaryButton>
+
+            <h2 className="text-center font-medium">{pdf.title}</h2>
+
+            <div className="mt-auto flex w-full flex-col items-center gap-2 lg:flex-row">
+              {/* Preview Button */}
+              <SecondaryButton
+                href={`${process.env.NEXT_PUBLIC_CDN_URL}${pdf.file}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                containerClassName="flex-1 w-full"
+                className="w-full"
+              >
+                Preview
+              </SecondaryButton>
+              {/* Download Button */}
+              <SecondaryButton
+                href={`${process.env.NEXT_PUBLIC_CDN_URL}raw/upload/fl_attachment:${encodeURIComponent(pdf.title)}/v1/courses/pdfs/${getFileId(pdf.file)}`}
+                containerClassName="w-full flex-1"
+                className="w-full"
+              >
+                Download
+              </SecondaryButton>
+            </div>
           </motion.div>
         ))}
       </motion.div>

@@ -99,7 +99,7 @@ export default function ProductDetailsResources({ product }: Props) {
             <div className="mt-auto flex w-full flex-col items-center gap-2 lg:flex-row">
               {/* Preview Button */}
               <SecondaryButton
-                href={`${process.env.NEXT_PUBLIC_CDN_URL}/${pdf.file}`}
+                href={`${process.env.NEXT_PUBLIC_CDN_URL}${pdf.file}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 containerClassName="flex-1 w-full"
@@ -109,7 +109,7 @@ export default function ProductDetailsResources({ product }: Props) {
               </SecondaryButton>
               {/* Download Button */}
               <SecondaryButton
-                href={`${process.env.NEXT_PUBLIC_CDN_URL}/raw/upload/fl_attachment:${encodeURIComponent(pdf.title)}/v1/products/pdfs/${getFileId(pdf.file)}`}
+                href={`${process.env.NEXT_PUBLIC_CDN_URL}raw/upload/fl_attachment:${encodeURIComponent(pdf.title)}/v1/products/pdfs/${getFileId(pdf.file)}`}
                 containerClassName="w-full flex-1"
                 className="w-full"
               >
