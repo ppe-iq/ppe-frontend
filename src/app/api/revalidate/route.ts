@@ -33,6 +33,12 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ error: "Missing path or tag" }, { status: 400 });
   } catch (error) {
-    return NextResponse.json({ error: "Revalidation failed" }, { status: 500 });
+    return NextResponse.json(
+      {
+        error:
+          (error instanceof Error && error.message) || "Revalidation failed",
+      },
+      { status: 500 },
+    );
   }
 }

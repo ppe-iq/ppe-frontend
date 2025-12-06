@@ -1,11 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 import Image from "next/image";
 
 import BreadcrumbTracker from "@/app/(website)/_components/breadcrumb-tracker";
 import PrimaryButton from "@/components/global/button/primary-button";
-import { useReducedMotion } from "framer-motion";
 
 import {
   breadcrumbTracker,
