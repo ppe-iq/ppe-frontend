@@ -136,7 +136,7 @@ function TestimonialCard({
         whileInView="show"
         exit="exit"
         viewport={testimonialContainer.viewport}
-        className="grid gap-4 overflow-hidden rounded-[12px] sm:grid-cols-2 sm:gap-8"
+        className="grid w-full gap-4 overflow-hidden rounded-[12px] sm:grid-cols-2 sm:gap-8"
       >
         <AnimatePresence>
           <motion.figure
@@ -147,7 +147,7 @@ function TestimonialCard({
             whileInView="show"
             exit="exit"
             viewport={testimonialImage.viewport}
-            className="relative aspect-[520/293] overflow-hidden rounded-[12px]"
+            className="relative aspect-[521/300] overflow-hidden rounded-[12px]"
           >
             <Image
               src={`${process.env.NEXT_PUBLIC_CDN_URL}${testimonial.image}`}

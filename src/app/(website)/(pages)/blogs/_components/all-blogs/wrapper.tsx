@@ -43,7 +43,7 @@ async function getAllBlogs(searchParams: {
     }
 
     // URL endpoint
-    const url = `${process.env.API_URL}${BLOG}?${params.toString()}`;
+    const url = `${process.env.LOCAL_API_URL}${BLOG}?${params.toString()}`;
 
     // Response
     const res = await fetch(url, {

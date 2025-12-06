@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 import BreadcrumbTracker from "@/app/(website)/_components/breadcrumb-tracker";
-import useScrollToTop from "@/hooks/use-scroll-to-top";
+import { useReducedMotion } from "framer-motion";
 
 import {
   breadcrumbTracker,
@@ -16,14 +16,14 @@ import {
 } from "./variants";
 
 export default function AllProductsHeroContent() {
-  // Custom hook to scroll to top
-  useScrollToTop();
+  // Reduce motion
+  const reduceMotion = useReducedMotion();
 
   return (
     <section className="relative flex min-h-[calc(100vh-5.5rem)] w-full flex-col overflow-hidden rounded-3xl px-4 sm:px-6 md:px-8 lg:px-10">
       <div className="mt-10 flex flex-1 flex-col justify-center gap-14">
         <motion.div
-          variants={breadcrumbTracker}
+          variants={reduceMotion ? {} : breadcrumbTracker}
           initial="hidden"
           animate="show"
           className="mx-auto sm:mx-0"
@@ -35,7 +35,7 @@ export default function AllProductsHeroContent() {
         </motion.div>
         <div className="space-y-4">
           <motion.h1
-            variants={title}
+            variants={reduceMotion ? {} : title}
             initial="hidden"
             animate="show"
             exit="exit"
@@ -44,7 +44,7 @@ export default function AllProductsHeroContent() {
             All Products
           </motion.h1>
           <motion.p
-            variants={description}
+            variants={reduceMotion ? {} : description}
             initial="hidden"
             animate="show"
             exit="exit"
@@ -57,7 +57,7 @@ export default function AllProductsHeroContent() {
       </div>
 
       <motion.figure
-        variants={image}
+        variants={reduceMotion ? {} : image}
         initial="hidden"
         animate="show"
         exit="exit"
@@ -74,7 +74,7 @@ export default function AllProductsHeroContent() {
 
       {/* Desktop */}
       <motion.span
-        variants={gradientDesktop}
+        variants={reduceMotion ? {} : gradientDesktop}
         initial="hidden"
         animate="show"
         className="to-primary-950/90 from-primary-950 absolute -top-18 -left-32 -z-10 hidden h-[calc(100vh+4rem)] w-full bg-gradient-to-r blur-3xl sm:block"
@@ -82,7 +82,7 @@ export default function AllProductsHeroContent() {
 
       {/* Mobile */}
       <motion.span
-        variants={gradientMobile}
+        variants={reduceMotion ? {} : gradientMobile}
         initial="hidden"
         animate="show"
         className="to-primary-950/90 from-primary-950 absolute -top-18 -left-32 -z-10 h-[calc(100vh+4rem)] w-full bg-gradient-to-r blur-3xl sm:hidden"
